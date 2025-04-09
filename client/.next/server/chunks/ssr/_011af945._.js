@@ -248,7 +248,36 @@ const ImageCard = ()=>{
 };
 const __TURBOPACK__default__export__ = ImageCard;
 }}),
+"[project]/components/modals/ImagePreviewModal.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { g: global, __dirname } = __turbopack_context__;
+{
+__turbopack_context__.s({
+    "default": (()=>__TURBOPACK__default__export__)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+"use client";
+;
+const ImagePreviewModal = ()=>{
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        id: "image-preview-modal",
+        onClick: ()=>{
+            const modal = document.getElementById("image-preview-modal");
+            if (modal) {
+                modal.style.display = "none";
+            }
+        },
+        className: "fixed inset-0 hidden items-center justify-center bg-[#2e2e2eb7] z-50 w-full h-screen"
+    }, void 0, false, {
+        fileName: "[project]/components/modals/ImagePreviewModal.tsx",
+        lineNumber: 7,
+        columnNumber: 5
+    }, this);
+};
+const __TURBOPACK__default__export__ = ImagePreviewModal;
+}}),
 
 };
 
-//# sourceMappingURL=_eed27e38._.js.map
+//# sourceMappingURL=_011af945._.js.map
