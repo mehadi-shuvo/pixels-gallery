@@ -1,1 +1,10 @@
-{}
+{
+  "[project]/components/menu/ResponsiveAppBar.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/components/menu/ResponsiveAppBar.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_ee6d618f._.js",
+      "static/chunks/components_menu_ResponsiveAppBar_tsx_d633f774._.js",
+      "static/chunks/components_menu_ResponsiveAppBar_tsx_c292af90._.js"
+    ]
+  }
+}
