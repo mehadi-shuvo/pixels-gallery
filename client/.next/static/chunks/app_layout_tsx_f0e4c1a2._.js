@@ -9,7 +9,7 @@
     "static/chunks/node_modules_@mui_system_esm_2a3d593b._.js",
     "static/chunks/node_modules_@mui_material_esm_f755bead._.js",
     "static/chunks/node_modules_7a820d52._.js",
-    "static/chunks/components_c619ba17._.js"
+    "static/chunks/components_5939b5f6._.js"
   ],
   "source": "dynamic"
 });

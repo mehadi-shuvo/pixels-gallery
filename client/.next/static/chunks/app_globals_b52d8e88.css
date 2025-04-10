@@ -4,8 +4,6 @@
 
 @layer theme {
   :root, :host {
-    --color-blue-500: oklch(62.3% .214 259.815);
-    --color-gray-300: oklch(87.2% .01 258.338);
     --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
@@ -258,10 +256,6 @@
     margin-top: calc(var(--spacing) * 1);
   }
 
-  .mt-2 {
-    margin-top: calc(var(--spacing) * 2);
-  }
-
   .block {
     display: block;
   }
@@ -347,10 +341,6 @@
     border-width: 1px;
   }
 
-  .border-gray-300 {
-    border-color: var(--color-gray-300);
-  }
-
   .bg-black\/50 {
     background-color: #00000080;
   }
@@ -369,10 +359,6 @@
     .bg-black\/90 {
       background-color: color-mix(in oklab, var(--color-black) 90%, transparent);
     }
-  }
-
-  .bg-blue-500 {
-    background-color: var(--color-blue-500);
   }
 
   .object-contain {
