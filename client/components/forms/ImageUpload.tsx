@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Close, Add, Tag, CloudUpload, Check } from "@mui/icons-material";
 import { uploadImage } from "@/utils/cloudinary";
+import toast from "react-hot-toast";
 
 interface UploadedFile {
   url: string;
@@ -29,11 +30,6 @@ export default function ModernImageUpload() {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
-    severity: "success",
-  });
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -62,18 +58,12 @@ export default function ModernImageUpload() {
         })
       );
       setUploadedFiles(uploaded);
-      showSnackbar("Images uploaded successfully!", "success");
     } catch (error) {
       console.error("Upload failed:", error);
-      showSnackbar("Upload failed. Please try again.", "error");
     } finally {
       setIsUploading(false);
     }
   }, []);
-
-  const showSnackbar = (message: string, severity: "success" | "error") => {
-    setSnackbar({ open: true, message, severity });
-  };
 
   const handleAddTag = () => {
     if (tagInput.trim() && !tags.includes(tagInput.trim())) {
@@ -88,8 +78,40 @@ export default function ModernImageUpload() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (uploadedFiles.length === 0 || !title) return;
-    console.log({ files, title, tags });
+    if (uploadedFiles.length === 0 || !title) {
+      toast.error("Please provide a title and at least one image.");
+      return;
+    }
+
+    try {
+      const imageURLs = uploadedFiles.map((file) => file.url);
+
+      const response = await fetch("http://localhost:5000/api/images", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          tags,
+          imageURLs,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success("Images uploaded successfully!");
+        setTitle("");
+        setTags([]);
+        setUploadedFiles([]);
+      } else {
+        toast.error(data.message || "Failed to upload images.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+      console.error("Submit error:", error);
+    }
   };
 
   return (
