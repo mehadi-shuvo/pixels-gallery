@@ -63,7 +63,36 @@ const getImages = async (req: Request, res: Response) => {
   }
 };
 
+const deleteImage = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const deleted = await imageServices.deleteImageById(id);
+
+    if (!deleted) {
+      res.status(404).json({
+        success: false,
+        message: "Image not found.",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Image deleted successfully.",
+      data: deleted,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete image.",
+      error: error?.message,
+    });
+  }
+};
+
 export const imageControllers = {
   createImage,
   getImages,
+  deleteImage,
 };

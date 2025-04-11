@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.post("/", imageControllers.createImage);
 router.get("/", imageControllers.getImages);
+router.delete("/:id", imageControllers.deleteImage);
 
 export const ImageRouter = router;

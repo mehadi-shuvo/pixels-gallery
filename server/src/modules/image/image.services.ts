@@ -54,7 +54,13 @@ const getImages = async (query: GetImageQuery) => {
   return images;
 };
 
+const deleteImageById = async (id: string) => {
+  const result = await Image.findByIdAndDelete(id);
+  return result;
+};
+
 export const imageServices = {
   createImages,
   getImages,
+  deleteImageById,
 };
