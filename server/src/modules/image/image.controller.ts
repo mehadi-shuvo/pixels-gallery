@@ -31,6 +31,39 @@ const createImage = async (req: Request, res: Response) => {
   }
 };
 
+const getImages = async (req: Request, res: Response) => {
+  try {
+    const {
+      search,
+      tags,
+      sortBy,
+    }: {
+      search?: string;
+      tags?: string | string[];
+      sortBy?: "popular" | "hot";
+    } = req.query;
+
+    const images = await imageServices.getImages({
+      search: search as string,
+      tags: tags ? (Array.isArray(tags) ? tags : [tags as string]) : [],
+      sortBy: sortBy as "popular" | "hot",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Images fetched successfully.",
+      data: images,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch images.",
+      error: error?.message,
+    });
+  }
+};
+
 export const imageControllers = {
   createImage,
+  getImages,
 };
