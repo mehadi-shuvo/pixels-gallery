@@ -1,6 +1,6 @@
 {
   "pages": {
-    "/upload/page": [
+    "/page": [
       "static/chunks/node_modules_next_dist_1a6ee436._.js",
       "static/chunks/app_favicon_ico_mjs_1579f9cb._.js",
       "static/chunks/[root of the server]__98144f0b._.css",
@@ -8,9 +8,9 @@
       "static/chunks/node_modules_26de09eb._.js",
       "static/chunks/components_d812bef6._.js",
       "static/chunks/app_layout_tsx_f0e4c1a2._.js",
-      "static/chunks/node_modules_ab8f7782._.js",
-      "static/chunks/_b8ba35c5._.js",
-      "static/chunks/app_upload_page_tsx_f263ae70._.js",
+      "static/chunks/node_modules_8f9c4516._.js",
+      "static/chunks/_731d3972._.js",
+      "static/chunks/app_page_tsx_f263ae70._.js",
       "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_49a6ea35._.js",
       "static/chunks/node_modules_next_dist_compiled_2ce9398a._.js",
       "static/chunks/node_modules_next_dist_client_43e3ffb8._.js",

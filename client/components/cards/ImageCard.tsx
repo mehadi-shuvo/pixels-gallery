@@ -13,10 +13,15 @@ import {
 } from "@mui/icons-material";
 
 const ImageCard = ({
-  src = "/globe.svg",
-  title = "Image Title",
-  views = 500,
-  likes = 44,
+  src,
+  title,
+  views,
+  likes,
+}: {
+  src: string;
+  title: string;
+  views: number;
+  likes: number;
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
