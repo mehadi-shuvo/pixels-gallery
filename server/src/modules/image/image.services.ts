@@ -54,6 +54,18 @@ const getImages = async (query: GetImageQuery) => {
   return images;
 };
 
+const updateImageView = async (id: string) => {
+  const image = await Image.findOneAndUpdate(
+    { _id: id },
+    { $inc: { views: 1 } },
+    { new: true }
+  );
+  if (!image) {
+    throw new Error("Image not found");
+  }
+  return image;
+};
+
 const deleteImageById = async (id: string) => {
   const result = await Image.findByIdAndDelete(id);
   return result;
@@ -62,5 +74,6 @@ const deleteImageById = async (id: string) => {
 export const imageServices = {
   createImages,
   getImages,
+  updateImageView,
   deleteImageById,
 };
