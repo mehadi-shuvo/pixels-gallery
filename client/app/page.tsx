@@ -13,39 +13,59 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import HotImageSlider from "@/components/slider/HotImageSlider";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [images, setImages] = useState<TImage[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const baseURL = "https://pixels-server-one.vercel.app/api";
 
-  useEffect(() => {
-    const fetchImages = async () => {
-      setIsLoading(true);
-      try {
-        let url = `${baseURL}/images`;
-        if (searchQuery) {
-          url += `?search=${encodeURIComponent(searchQuery)}`;
-        }
-
-        const res = await fetch(url);
-        const data = await res.json();
-        setImages(data.data || []);
-      } catch (err) {
-        console.error("Failed to fetch images:", err);
-      } finally {
-        setIsLoading(false);
+  const fetchImages = async () => {
+    setIsLoading(true);
+    try {
+      let url = `${baseURL}/images`;
+      if (searchQuery) {
+        url += `?search=${encodeURIComponent(searchQuery)}`;
       }
-    };
 
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("Failed to fetch images");
+
+      const data = await res.json();
+      setImages(data.data || []);
+    } catch (err) {
+      console.error("Failed to fetch images:", err);
+      toast.error("Failed to load images");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
     const debounceTimer = setTimeout(() => {
       fetchImages();
     }, 500);
 
     return () => clearTimeout(debounceTimer);
   }, [searchQuery]);
+
+  const handleDeleteImage = async (id: string) => {
+    setIsDeleting(true);
+    try {
+      setImages((prevImages) => prevImages.filter((img) => img._id !== id));
+      toast.success("Image deleted successfully");
+    } catch (error) {
+      console.error("Delete error:", error);
+      toast.error("Failed to delete image");
+      fetchImages();
+    } finally {
+      setIsDeleting(false);
+      fetchImages();
+    }
+  };
 
   return (
     <Container
@@ -64,7 +84,7 @@ export default function Home() {
           variant="h2"
           sx={{
             fontWeight: 700,
-            color: "#2E4C3E", // Deep Green
+            color: "#2E4C3E",
             fontFamily: "'Montserrat', sans-serif",
             mb: 2,
           }}
@@ -74,7 +94,7 @@ export default function Home() {
         <Typography
           variant="subtitle1"
           sx={{
-            color: "#2E4C3E", // Deep Green
+            color: "#2E4C3E",
             maxWidth: 600,
             mx: "auto",
           }}
@@ -136,7 +156,7 @@ export default function Home() {
           alignItems="center"
           minHeight="300px"
         >
-          <CircularProgress sx={{ color: "#A4B494" }} />{" "}
+          <CircularProgress sx={{ color: "#A4B494" }} />
         </Box>
       ) : (
         <Box
@@ -152,14 +172,16 @@ export default function Home() {
             px: { xs: 2, md: 4 },
           }}
         >
-          {images.map((img: TImage, idx: number) => (
+          {images.map((img: TImage) => (
             <ImageCard
-              key={img.title + idx}
+              key={img._id}
               id={img._id}
               src={img.imageURL}
               title={img.title}
               views={img.views || 0}
               likes={img.likes || 0}
+              onDelete={handleDeleteImage}
+              isDeleting={isDeleting}
             />
           ))}
         </Box>

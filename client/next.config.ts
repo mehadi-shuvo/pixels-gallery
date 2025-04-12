@@ -1,6 +1,11 @@
 const nextConfig = {
   images: {
-    domains: ["localhost", "res.cloudinary.com", "example.com"], // Add your image host domains here
+    domains: [
+      "localhost",
+      "res.cloudinary.com",
+      "example.com",
+      "https://pixels-server-one.vercel.app",
+    ], // Add your image host domains here
   },
 };
 

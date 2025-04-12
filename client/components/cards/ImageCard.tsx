@@ -10,6 +10,7 @@ import {
   Chip,
   Stack,
   IconButton,
+  Button,
 } from "@mui/material";
 import {
   Visibility,
@@ -18,7 +19,9 @@ import {
   Close,
   ZoomIn,
   ZoomOut,
+  Delete,
 } from "@mui/icons-material";
+import toast from "react-hot-toast";
 
 const ImageCard = ({
   id,
@@ -26,12 +29,16 @@ const ImageCard = ({
   title,
   views: initialViews,
   likes: initialLikes,
+  onDelete,
+  isDeleting,
 }: {
   id: string;
   src: string;
   title: string;
   views: number;
   likes: number;
+  onDelete?: (id: string) => void;
+  isDeleting?: boolean;
 }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -111,6 +118,90 @@ const ImageCard = ({
     } catch (error) {
       console.error("Error updating view count:", error);
       setShowModal(true);
+    }
+  };
+
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isDeleting) return;
+
+    // Show confirmation dialog
+    const confirm = await toast.promise(
+      new Promise((resolve) => {
+        toast(
+          (t) => (
+            <Box sx={{ textAlign: "center" }}>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                Are you sure you want to delete this image?
+              </Typography>
+              <Stack direction="row" spacing={2} justifyContent="center">
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                    resolve(true);
+                  }}
+                  sx={{
+                    backgroundColor: "#D17B60",
+                    "&:hover": { backgroundColor: "#b3664e" },
+                  }}
+                >
+                  Delete
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    toast.dismiss(t.id);
+                    resolve(false);
+                  }}
+                  sx={{
+                    borderColor: "#A4B494",
+                    color: "#2E4C3E",
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Stack>
+            </Box>
+          ),
+          {
+            duration: Infinity,
+            style: {
+              backgroundColor: "#F8F4E9",
+              color: "#2E4C3E",
+              border: "1px solid #A4B494",
+              maxWidth: "400px",
+            },
+          }
+        );
+      }),
+      {
+        loading: "Processing...",
+        success: (confirmed) => (confirmed ? "Deleting..." : "Cancelled"),
+        error: "Error confirming deletion",
+      }
+    );
+
+    if (!confirm) return;
+
+    try {
+      const response = await fetch(`${baseURL}/images/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to delete image");
+      }
+
+      if (onDelete) {
+        onDelete(id);
+      }
+      toast.success("Image deleted successfully");
+    } catch (error) {
+      console.error("Delete error:", error);
+      toast.error("Failed to delete image");
     }
   };
 
@@ -231,6 +322,22 @@ const ImageCard = ({
               }}
             />
           </Stack>
+          <IconButton
+            onClick={handleDelete}
+            sx={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+              color: "#D17B60", // Terracotta
+              backgroundColor: "rgba(248, 244, 233, 0.7)", // Semi-transparent Cream
+              "&:hover": {
+                backgroundColor: "rgba(209, 123, 96, 0.2)", // Light Terracotta
+              },
+            }}
+            aria-label="Delete image"
+          >
+            <Delete />
+          </IconButton>
         </CardContent>
       </Card>
 
