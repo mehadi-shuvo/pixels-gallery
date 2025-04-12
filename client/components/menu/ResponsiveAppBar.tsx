@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   AppBar,
   Box,
@@ -18,7 +20,11 @@ export default function GalleryNavbar() {
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(
     null
   );
-  const navItems = ["Gallery", "Upload", "About"];
+  const pathname = usePathname();
+  const navItems = [
+    { name: "Gallery", path: "/" },
+    { name: "Upload", path: "/upload" },
+  ];
 
   const handleOpenMobileMenu = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMenuAnchor(event.currentTarget);
@@ -35,7 +41,7 @@ export default function GalleryNavbar() {
           {/* Logo - shows on all screens */}
           <Typography
             variant="h6"
-            component="a"
+            component={Link}
             href="/"
             sx={{
               mr: 2,
@@ -69,8 +75,14 @@ export default function GalleryNavbar() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {navItems.map((item) => (
-                <MenuItem key={item} onClick={handleCloseMobileMenu}>
-                  <Typography textAlign="center">{item}</Typography>
+                <MenuItem
+                  key={item.name}
+                  onClick={handleCloseMobileMenu}
+                  component={Link}
+                  href={item.path}
+                  selected={pathname === item.path}
+                >
+                  {item.name}
                 </MenuItem>
               ))}
             </Menu>
@@ -86,15 +98,24 @@ export default function GalleryNavbar() {
           >
             {navItems.map((item) => (
               <Button
-                key={item}
+                key={item.name}
+                component={Link}
+                href={item.path}
                 color="inherit"
                 sx={{
-                  fontWeight: 500,
+                  fontWeight: pathname === item.path ? 700 : 500,
                   textTransform: "none",
                   fontSize: "1rem",
+                  backgroundColor:
+                    pathname === item.path
+                      ? "rgba(255, 255, 255, 0.1)"
+                      : "transparent",
+                  "&:hover": {
+                    backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  },
                 }}
               >
-                {item}
+                {item.name}
               </Button>
             ))}
           </Box>
