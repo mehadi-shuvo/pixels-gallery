@@ -3,39 +3,94 @@
 import ImageCard from "@/components/cards/ImageCard";
 import { TImage } from "@/types";
 import { useEffect, useState } from "react";
-// import ImageCard from "@/components/cards/ImageCard";
-// import { TImage } from "..";
+import { TextField, InputAdornment, Box, Container } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
 
 export default function Home() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState<TImage[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchImages = async () => {
+      setIsLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/api/images");
+        let url = "http://localhost:5000/api/images";
+        if (searchQuery) {
+          url += `?search=${encodeURIComponent(searchQuery)}`;
+        }
+
+        const res = await fetch(url);
         const data = await res.json();
-        setImages(data.data);
+        setImages(data.data || []);
       } catch (err) {
         console.error("Failed to fetch images:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchImages();
-  }, []);
+    // Add debounce to prevent too many API calls
+    const debounceTimer = setTimeout(() => {
+      fetchImages();
+    }, 500);
+
+    return () => clearTimeout(debounceTimer);
+  }, [searchQuery]);
+
   return (
-    <div>
-      <div className="my-10 grid items-center justify-center grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-4/5 mx-auto">
-        {images.map((img: TImage, idx: number) => (
-          <ImageCard
-            key={img.title + idx}
-            id={img._id}
-            src={img.imageURL}
-            title={img.title}
-            views={img.views || 0}
-            likes={img.likes || 0}
+    <Container maxWidth="xl">
+      <Box sx={{ my: 4 }}>
+        {/* Search Bar */}
+        <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Search images..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            sx={{ maxWidth: 600 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
           />
-        ))}
-      </div>
-    </div>
+        </Box>
+
+        {/* Images Grid */}
+        {isLoading ? (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            minHeight="200px"
+          >
+            <p>Loading images...</p>
+          </Box>
+        ) : (
+          <div className="grid items-center justify-center grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-4/5 mx-auto">
+            {images.map((img: TImage, idx: number) => (
+              <ImageCard
+                key={img.title + idx}
+                id={img._id}
+                src={img.imageURL}
+                title={img.title}
+                views={img.views || 0}
+                likes={img.likes || 0}
+              />
+            ))}
+          </div>
+        )}
+
+        {!isLoading && images.length === 0 && (
+          <Box textAlign="center" mt={4}>
+            <p>No images found. Try a different search term.</p>
+          </Box>
+        )}
+      </Box>
+    </Container>
   );
 }
