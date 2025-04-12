@@ -5,6 +5,7 @@ import { TImage } from "@/types";
 import { useEffect, useState } from "react";
 import { TextField, InputAdornment, Box, Container } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import HotImageSlider from "@/components/slider/HotImageSlider";
 
 export default function Home() {
   const [images, setImages] = useState<TImage[]>([]);
@@ -40,6 +41,12 @@ export default function Home() {
 
   return (
     <Container maxWidth="xl">
+      <HotImageSlider />
+      <h1 className="text-3xl font-bold text-center mb-4">Image Gallery</h1>
+      <p className="text-center mb-8">
+        Search and explore a variety of images.
+      </p>
+      {/* Search Bar */}
       <Box sx={{ my: 4 }}>
         {/* Search Bar */}
         <Box sx={{ mb: 4, display: "flex", justifyContent: "center" }}>

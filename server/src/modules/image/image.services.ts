@@ -42,9 +42,9 @@ const getImages = async (query: GetImageQuery) => {
     sort.likes = -1;
     sort.views = -1;
   } else if (sortBy === "hot") {
-    sort.createdAt = -1;
-    sort.likes = -1;
     sort.views = -1;
+    sort.likes = -1;
+    sort.createdAt = -1;
   } else {
     sort.createdAt = -1;
   }
