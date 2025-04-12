@@ -1,43 +1,155 @@
 # Pixels Gallery
 
-A modern, responsive image gallery built with **Next.js**, **TypeScript**, and **Material UI**, powered by **Cloudinary** for image storage and **Express + MongoDB** on the backend.
+**Pixels Gallery** is a modern, full-stack image gallery application built with **Next.js**, **TypeScript**, **Material UI**, and **Cloudinary**, offering a seamless and responsive user experience. The project leverages a RESTful backend built with **Express** and **MongoDB** to handle secure image metadata operations.
 
-![Pixels Gallery](https://pixels-client.vercel.app/banner.png) <!-- Replace with actual banner if available -->
+---
 
 ## Features
 
-- Upload single or multiple images using Cloudinary
-- Responsive image grid layout
-- Infinite scroll for seamless browsing
-- Modal preview on image click
-- Drag and drop upload
-- Like & view counters
-- Search images by title or tags
-- Trending section
-- Delete with confirmation
-- Clean, intuitive UI using Material UI
+- Upload single or multiple images to Cloudinary
+- Responsive and adaptive image grid layout
+- Infinite scrolling with lazy loading
+- Modal-based image preview with like and view counters
+- Drag-and-drop image upload
+- Search functionality based on image title or tags
+- Trending section based on popularity metrics
+- Delete images with confirmation prompt
+- Polished UI using Material UI with custom header and footer components
 
-## Live Demo
-
-[**pixels-client.vercel.app**](https://pixels-client.vercel.app/)
+---
 
 ## Tech Stack
 
 ### Client
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Material UI](https://mui.com/)
-- [Cloudinary](https://cloudinary.com/)
-- [React Hot Toast](https://react-hot-toast.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- **Next.js** 15 (with Turbopack)
+- **TypeScript**
+- **Material UI** 7
+- **Cloudinary SDK** + `next-cloudinary`
+- **Tailwind CSS** 4
+- **React Hot Toast**
 
 ### Server
-- [Express.js](https://expressjs.com/)
-- [MongoDB](https://www.mongodb.com/)
-- [Mongoose](https://mongoosejs.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-- [CORS](https://www.npmjs.com/package/cors)
+- **Express.js** 5
+- **MongoDB** with **Mongoose**
+- **TypeScript** with `ts-node-dev`
+- **CORS** and **dotenv**
 
-## Folder Structure
+---
 
+## File Structure
+
+```
+pixels-gallery/
+├── client/       # Frontend (Next.js + TypeScript)
+│   ├── pages/
+│   ├── components/
+│   ├── styles/
+│   └── ...
+├── server/       # Backend (Express + MongoDB)
+│   ├── src/
+│   │   ├── routes/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   └── server.ts
+└── README.md
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- MongoDB URI
+- Cloudinary account with credentials
+
+---
+
+## Environment Variables
+
+Create a `.env` file in both the `client` and `server` directories.
+
+### Client `.env`
+
+```
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+```
+
+### Server `.env`
+
+```
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+---
+
+## Installation
+
+### Client Setup
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+### Server Setup
+
+```bash
+cd server
+npm install
+npm run start:dev
+```
+
+---
+
+## Scripts
+
+### Client
+
+- `npm run dev` – Start development server
+- `npm run build` – Create production build
+- `npm run start` – Start production server
+
+### Server
+
+- `npm run start:dev` – Start development server with auto-reload
+- `npm run build` – Compile TypeScript
+
+---
+
+## Deployment
+
+The project can be deployed using platforms like **Vercel** (for frontend) and **Render / Railway / Cyclic** (for backend). Make sure to add required environment variables during deployment.
+
+---
+
+## Live Preview & Repository
+
+- **Live Site:** [https://pixels-client.vercel.app/](https://pixels-client.vercel.app/)
+- **GitHub Repo:** [github.com/mehadi-shuvo/pixels-gallery](https://github.com/mehadi-shuvo/pixels-gallery)
+
+---
+
+## Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss what you'd like to change.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Contact
+
+Developed by [Mehadi Shuvo](https://www.linkedin.com/in/mehadi-shuvo/)  
+Feel free to reach out for collaboration or feedback!
+```
