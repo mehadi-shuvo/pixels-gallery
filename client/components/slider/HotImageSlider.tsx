@@ -22,13 +22,12 @@ const HotImageSlider = () => {
   const [hotImages, setHotImages] = useState<TImage[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const baseURL = "https://pixels-server-one.vercel.app/api";
 
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const hotRes = await fetch(
-          "http://localhost:5000/api/images?sortBy=hot"
-        );
+        const hotRes = await fetch(`${baseURL}/images?sortBy=hot`);
         const hotData = await hotRes.json();
         setHotImages(hotData.data.slice(0, 3) || []);
       } catch (err) {

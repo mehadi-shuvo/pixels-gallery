@@ -40,6 +40,7 @@ const ImageCard = ({
   const [views, setViews] = useState(initialViews);
   const [likes, setLikes] = useState(initialLikes);
   const modalRef = useRef<HTMLDivElement>(null);
+  const baseURL = "https://pixels-server-one.vercel.app/api";
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -65,14 +66,11 @@ const ImageCard = ({
     try {
       let response;
       if (isLiked) {
-        response = await fetch(
-          `http://localhost:5000/api/images/${id}/unlike`,
-          {
-            method: "PUT",
-          }
-        );
+        response = await fetch(`${baseURL}/images/${id}/unlike`, {
+          method: "PUT",
+        });
       } else {
-        response = await fetch(`http://localhost:5000/api/images/${id}/like`, {
+        response = await fetch(`${baseURL}/images/${id}/like`, {
           method: "PUT",
         });
       }
@@ -99,12 +97,9 @@ const ImageCard = ({
 
   const handlePreview = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:5000/api/images/${id}/view`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`${baseURL}/images/${id}/view`, {
+        method: "GET",
+      });
 
       if (!response.ok) throw new Error("Failed to update view count");
 

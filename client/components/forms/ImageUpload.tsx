@@ -29,6 +29,7 @@ export default function ModernImageUpload() {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
+  const baseURL = "https://pixels-server-one.vercel.app/api";
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -84,7 +85,7 @@ export default function ModernImageUpload() {
     try {
       const imageURLs = uploadedFiles.map((file) => file.url);
 
-      const response = await fetch("http://localhost:5000/api/images", {
+      const response = await fetch(`${baseURL}/images`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -19,11 +19,13 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const baseURL = "https://pixels-server-one.vercel.app/api";
+
   useEffect(() => {
     const fetchImages = async () => {
       setIsLoading(true);
       try {
-        let url = "http://localhost:5000/api/images";
+        let url = `${baseURL}/images`;
         if (searchQuery) {
           url += `?search=${encodeURIComponent(searchQuery)}`;
         }
