@@ -113,6 +113,31 @@ const updateImageLike = async (req: Request, res: Response) => {
   }
 };
 
+const removeImageLike = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const image = await imageServices.removeImageLike(id);
+    if (!image) {
+      res.status(404).json({
+        success: false,
+        message: "Image not found.",
+      });
+      return;
+    }
+    res.status(200).json({
+      success: true,
+      message: "Image like removed successfully.",
+      data: image,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to remove image like.",
+      error: error?.message,
+    });
+  }
+};
+
 const deleteImage = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -146,5 +171,6 @@ export const imageControllers = {
   getImages,
   updateImageView,
   updateImageLike,
+  removeImageLike,
   deleteImage,
 };

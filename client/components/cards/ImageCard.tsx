@@ -17,7 +17,7 @@ const ImageCard = ({
   src,
   title,
   views: initialViews,
-  likes,
+  likes: initialLikes,
 }: {
   id: string;
   src: string;
@@ -30,6 +30,7 @@ const ImageCard = ({
   const [showModal, setShowModal] = useState(false);
   const [zoom, setZoom] = useState(1);
   const [views, setViews] = useState(initialViews);
+  const [likes, setLikes] = useState(initialLikes);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Close modal when clicking outside content
@@ -52,9 +53,40 @@ const ImageCard = ({
     };
   }, [showModal]);
 
-  const toggleLike = (e: React.MouseEvent) => {
+  const handleLike = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
+
+    try {
+      let response;
+      if (isLiked) {
+        // Call unlike API
+        response = await fetch(
+          `http://localhost:5000/api/images/${id}/unlike`,
+          {
+            method: "PUT",
+          }
+        );
+      } else {
+        // Call like API
+        response = await fetch(`http://localhost:5000/api/images/${id}/like`, {
+          method: "PUT",
+        });
+      }
+
+      if (!response.ok) {
+        throw new Error(`Failed to ${isLiked ? "unlike" : "like"} image`);
+      }
+
+      const data = await response.json();
+
+      // Update the likes count if the API call was successful
+      if (data.success && data.data) {
+        setLikes(data.data.likes);
+        setIsLiked(!isLiked);
+      }
+    } catch (error) {
+      console.error(`Error ${isLiked ? "unliking" : "liking"} image:`, error);
+    }
   };
 
   const handleZoom = (direction: "in" | "out") => {
@@ -175,10 +207,10 @@ const ImageCard = ({
             />
             <Chip
               icon={isLiked ? <Favorite color="error" /> : <FavoriteBorder />}
-              label={likes + (isLiked ? 1 : 0)}
+              label={likes}
               size="small"
               variant="outlined"
-              onClick={toggleLike}
+              onClick={handleLike}
             />
           </Stack>
         </CardContent>
@@ -239,7 +271,7 @@ const ImageCard = ({
                   <Visibility fontSize="small" /> {views}
                 </span>
                 <span className="flex items-center gap-1">
-                  <Favorite fontSize="small" /> {likes + (isLiked ? 1 : 0)}
+                  <Favorite fontSize="small" /> {likes}
                 </span>
               </div>
             </div>
