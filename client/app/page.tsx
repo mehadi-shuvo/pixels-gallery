@@ -28,6 +28,7 @@ export default function Home() {
         {images.map((img: TImage, idx: number) => (
           <ImageCard
             key={img.title + idx}
+            id={img._id}
             src={img.imageURL}
             title={img.title}
             views={img.views || 0}

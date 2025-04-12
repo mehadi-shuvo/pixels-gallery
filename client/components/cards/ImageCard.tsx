@@ -13,11 +13,13 @@ import {
 } from "@mui/icons-material";
 
 const ImageCard = ({
+  id,
   src,
   title,
-  views,
+  views: initialViews,
   likes,
 }: {
+  id: string;
   src: string;
   title: string;
   views: number;
@@ -27,6 +29,7 @@ const ImageCard = ({
   const [isHovered, setIsHovered] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [zoom, setZoom] = useState(1);
+  const [views, setViews] = useState(initialViews);
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Close modal when clicking outside content
@@ -61,6 +64,33 @@ const ImageCard = ({
     });
   };
 
+  const handlePreview = async () => {
+    try {
+      // Call the API to update views
+      const response = await fetch(`http://localhost:5000/api/images/${id}`, {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update view count");
+      }
+
+      const data = await response.json();
+
+      // Update the views count if the API call was successful
+      if (data.success && data.data) {
+        setViews(data.data.views);
+      }
+
+      // Show the modal
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error updating view count:", error);
+      // Still show the modal even if view count update fails
+      setShowModal(true);
+    }
+  };
+
   return (
     <>
       {/* Image Card */}
@@ -80,7 +110,7 @@ const ImageCard = ({
           position: "relative",
           overflow: "hidden",
         }}
-        onClick={() => setShowModal(true)}
+        onClick={handlePreview}
       >
         {/* Image with hover effect */}
         <Box
