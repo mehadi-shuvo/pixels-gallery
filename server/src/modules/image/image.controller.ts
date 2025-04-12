@@ -88,6 +88,31 @@ const updateImageView = async (req: Request, res: Response) => {
   }
 };
 
+const updateImageLike = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const image = await imageServices.updateImageLike(id);
+    if (!image) {
+      res.status(404).json({
+        success: false,
+        message: "Image not found.",
+      });
+      return;
+    }
+    res.status(200).json({
+      success: true,
+      message: "Image like updated successfully.",
+      data: image,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to update image like.",
+      error: error?.message,
+    });
+  }
+};
+
 const deleteImage = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -120,5 +145,6 @@ export const imageControllers = {
   createImage,
   getImages,
   updateImageView,
+  updateImageLike,
   deleteImage,
 };

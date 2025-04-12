@@ -66,6 +66,18 @@ const updateImageView = async (id: string) => {
   return image;
 };
 
+const updateImageLike = async (id: string) => {
+  const image = await Image.findOneAndUpdate(
+    { _id: id },
+    { $inc: { likes: 1 } },
+    { new: true }
+  );
+  if (!image) {
+    throw new Error("Image not found");
+  }
+  return image;
+};
+
 const deleteImageById = async (id: string) => {
   const result = await Image.findByIdAndDelete(id);
   return result;
@@ -75,5 +87,6 @@ export const imageServices = {
   createImages,
   getImages,
   updateImageView,
+  updateImageLike,
   deleteImageById,
 };

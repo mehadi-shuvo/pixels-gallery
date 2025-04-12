@@ -67,9 +67,12 @@ const ImageCard = ({
   const handlePreview = async () => {
     try {
       // Call the API to update views
-      const response = await fetch(`http://localhost:5000/api/images/${id}`, {
-        method: "GET",
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/images/${id}/view`,
+        {
+          method: "GET",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to update view count");
