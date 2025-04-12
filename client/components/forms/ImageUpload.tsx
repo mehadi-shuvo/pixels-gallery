@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useState, useCallback, ChangeEvent } from "react";
 import {
@@ -35,7 +34,6 @@ export default function ModernImageUpload() {
     if (e.target.files) {
       const selectedFiles = Array.from(e.target.files);
       setFiles(selectedFiles);
-      // Auto-start upload when files are selected
       handleUpload(selectedFiles);
     }
   };
@@ -123,20 +121,32 @@ export default function ModernImageUpload() {
         maxWidth: 800,
         mx: "auto",
         my: 8,
-        backgroundColor: "background.paper",
+        backgroundColor: "#F8F4E9", // Cream background
+        border: "1px solid #A4B494", // Sage Green border
       }}
     >
       <Typography
         variant="h4"
         component="h1"
         gutterBottom
-        sx={{ fontWeight: 600, mb: 2 }}
+        sx={{
+          fontWeight: 700,
+          mb: 2,
+          color: "#2E4C3E", // Deep Green
+          fontFamily: "'Montserrat', sans-serif",
+        }}
       >
-        Share Your Creative Work
+        Share Your Nature Photos
       </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Drag & drop images or click to browse. Add a title and tags to organize
-        your content.
+      <Typography
+        variant="body1"
+        sx={{
+          mb: 4,
+          color: "#2E4C3E", // Deep Green
+        }}
+      >
+        Upload your outdoor photography to inspire others. Add descriptive tags
+        to help others discover your work.
       </Typography>
 
       <Box component="form" onSubmit={handleSubmit}>
@@ -144,30 +154,42 @@ export default function ModernImageUpload() {
         <Box
           sx={{
             border: "2px dashed",
-            borderColor: "divider",
+            borderColor: "#A4B494", // Sage Green
             borderRadius: 2,
             p: 4,
             textAlign: "center",
             mb: 3,
-            backgroundColor: "action.hover",
+            backgroundColor: "rgba(164, 180, 148, 0.1)", // Light Sage Green
             transition: "all 0.3s",
             "&:hover": {
-              borderColor: "primary.main",
-              backgroundColor: "action.selected",
+              borderColor: "#D17B60", // Terracotta on hover
+              backgroundColor: "rgba(164, 180, 148, 0.2)",
             },
           }}
         >
-          <CloudUpload sx={{ fontSize: 48, color: "text.secondary", mb: 2 }} />
-          <Typography variant="h6" gutterBottom>
+          <CloudUpload
+            sx={{
+              fontSize: 48,
+              color: "#2E4C3E", // Deep Green
+              mb: 2,
+            }}
+          />
+          <Typography variant="h6" gutterBottom sx={{ color: "#2E4C3E" }}>
             Drag & Drop Images Here
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <Typography variant="body2" sx={{ mb: 2, color: "#2E4C3E" }}>
             or
           </Typography>
           <Button
             variant="contained"
             component="label"
-            color="primary"
+            sx={{
+              backgroundColor: "#2E4C3E", // Deep Green
+              color: "#F8F4E9", // Cream
+              "&:hover": {
+                backgroundColor: "#D17B60", // Terracotta on hover
+              },
+            }}
             disabled={isUploading}
           >
             Browse Files
@@ -179,7 +201,11 @@ export default function ModernImageUpload() {
               onChange={handleFileChange}
             />
           </Button>
-          <Typography variant="caption" display="block" sx={{ mt: 2 }}>
+          <Typography
+            variant="caption"
+            display="block"
+            sx={{ mt: 2, color: "#2E4C3E" }}
+          >
             Supports JPG, PNG, WEBP (Max 10MB each)
           </Typography>
         </Box>
@@ -187,8 +213,13 @@ export default function ModernImageUpload() {
         {/* Upload Progress */}
         {isUploading && (
           <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-            <CircularProgress size={24} sx={{ mr: 2 }} />
-            <Typography>Uploading {files.length} images...</Typography>
+            <CircularProgress
+              size={24}
+              sx={{ mr: 2, color: "#A4B494" }} // Sage Green
+            />
+            <Typography sx={{ color: "#2E4C3E" }}>
+              Uploading {files.length} images...
+            </Typography>
           </Box>
         )}
 
@@ -203,28 +234,20 @@ export default function ModernImageUpload() {
                 mb: 2,
               }}
             >
-              <Typography variant="subtitle1">
+              <Typography variant="subtitle1" sx={{ color: "#2E4C3E" }}>
                 Uploaded Images ({uploadedFiles.length})
               </Typography>
               <Chip
-                icon={<Check />}
+                icon={<Check sx={{ color: "#2E4C3E" }} />}
                 label="Upload Complete"
-                color="success"
                 size="small"
                 variant="outlined"
+                sx={{
+                  borderColor: "#A4B494", // Sage Green
+                  color: "#2E4C3E", // Deep Green
+                }}
               />
             </Box>
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  xs: "repeat(2, 1fr)",
-                  sm: "repeat(3, 1fr)",
-                  md: "repeat(4, 1fr)",
-                },
-                gap: 2,
-              }}
-            ></Box>
           </Box>
         )}
 
@@ -235,17 +258,43 @@ export default function ModernImageUpload() {
           variant="outlined"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          sx={{ mb: 3 }}
+          sx={{
+            mb: 3,
+            "& .MuiOutlinedInput-root": {
+              "& fieldset": {
+                borderColor: "#A4B494", // Sage Green
+              },
+              "&:hover fieldset": {
+                borderColor: "#D17B60", // Terracotta
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#2E4C3E", // Deep Green
+              },
+            },
+          }}
           required
           InputProps={{
-            sx: { borderRadius: 2 },
+            sx: {
+              borderRadius: 2,
+              color: "#2E4C3E", // Deep Green
+              backgroundColor: "#F8F4E9", // Cream
+            },
+          }}
+          InputLabelProps={{
+            sx: {
+              color: "#2E4C3E", // Deep Green
+            },
           }}
         />
 
         {/* Tags Input */}
         <Box sx={{ mb: 3 }}>
-          <Typography variant="subtitle1" gutterBottom>
-            Tags
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            sx={{ color: "#2E4C3E" }}
+          >
+            Tags (e.g., landscape, wildlife, sunset)
           </Typography>
           <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: "wrap" }}>
             {tags.map((tag) => (
@@ -253,9 +302,18 @@ export default function ModernImageUpload() {
                 key={tag}
                 label={tag}
                 onDelete={() => handleRemoveTag(tag)}
-                deleteIcon={<Close />}
-                sx={{ mb: 1 }}
-                color="primary"
+                deleteIcon={<Close sx={{ color: "#2E4C3E" }} />}
+                sx={{
+                  mb: 1,
+                  backgroundColor: "#A4B494", // Sage Green
+                  color: "#F8F4E9", // Cream
+                  "& .MuiChip-deleteIcon": {
+                    color: "#F8F4E9", // Cream
+                    "&:hover": {
+                      color: "#D17B60", // Terracotta
+                    },
+                  },
+                }}
                 size="small"
               />
             ))}
@@ -263,24 +321,36 @@ export default function ModernImageUpload() {
           <TextField
             fullWidth
             variant="outlined"
-            placeholder="Add tags to help others find your work..."
+            placeholder="Add nature-related tags..."
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             InputProps={{
-              sx: { borderRadius: 2 },
+              sx: {
+                borderRadius: 2,
+                color: "#2E4C3E", // Deep Green
+                backgroundColor: "#F8F4E9", // Cream
+                "& fieldset": {
+                  borderColor: "#A4B494", // Sage Green
+                },
+              },
               startAdornment: (
                 <InputAdornment position="start">
-                  <Tag color="action" />
+                  <Tag sx={{ color: "#2E4C3E" }} />
                 </InputAdornment>
               ),
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     edge="end"
-                    color="primary"
                     onClick={handleAddTag}
                     disabled={!tagInput.trim()}
-                    sx={{ mr: -1 }}
+                    sx={{
+                      mr: -1,
+                      color: "#2E4C3E", // Deep Green
+                      "&:hover": {
+                        color: "#D17B60", // Terracotta
+                      },
+                    }}
                   >
                     <Add />
                   </IconButton>
@@ -300,7 +370,6 @@ export default function ModernImageUpload() {
         <Button
           type="submit"
           variant="contained"
-          color="primary"
           size="large"
           fullWidth
           disabled={uploadedFiles.length === 0 || !title}
@@ -309,9 +378,18 @@ export default function ModernImageUpload() {
             fontWeight: 600,
             borderRadius: 2,
             fontSize: "1rem",
+            backgroundColor: "#2E4C3E", // Deep Green
+            color: "#F8F4E9", // Cream
+            "&:hover": {
+              backgroundColor: "#D17B60", // Terracotta
+            },
+            "&:disabled": {
+              backgroundColor: "rgba(164, 180, 148, 0.5)", // Light Sage Green
+              color: "rgba(46, 76, 62, 0.5)", // Light Deep Green
+            },
           }}
         >
-          Publish Your Work
+          Publish Your Photos
         </Button>
       </Box>
     </Paper>

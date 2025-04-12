@@ -15,8 +15,8 @@ const Footer = () => {
     <Box
       component="footer"
       sx={{
-        backgroundColor: "#2c3e50",
-        color: "#ecf0f1",
+        backgroundColor: "#2E4C3E",
+        color: "#F8F4E9",
         py: 6,
         mt: "auto",
       }}
@@ -36,13 +36,18 @@ const Footer = () => {
             <Typography
               variant="h6"
               gutterBottom
-              sx={{ fontWeight: "bold", color: "#f1c40f" }}
+              sx={{
+                fontWeight: "bold",
+                color: "#A4B494",
+                fontFamily: "'Montserrat', sans-serif",
+              }}
             >
               Pixels Gallery
             </Typography>
-            <Typography variant="body2">
-              Discover and share beautiful images from around the world. Our
-              gallery showcases stunning photography for everyone to enjoy.
+            <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
+              Discover and share beautiful nature photography from around the
+              world. Our gallery celebrates the beauty of the outdoors and
+              eco-conscious artistry.
             </Typography>
           </Box>
 
@@ -60,7 +65,11 @@ const Footer = () => {
               <Typography
                 variant="h6"
                 gutterBottom
-                sx={{ fontWeight: "bold", color: "#f1c40f" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#A4B494",
+                  fontFamily: "'Montserrat', sans-serif",
+                }}
               >
                 Explore
               </Typography>
@@ -68,18 +77,25 @@ const Footer = () => {
                 component="ul"
                 sx={{ listStyle: "none", p: 0, m: 0, gap: 1 }}
               >
-                {["Popular", "Newest", "Categories", "Artists"].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href="#"
-                      color="inherit"
-                      underline="hover"
-                      sx={{ display: "block" }}
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
+                {["Landscapes", "Wildlife", "Seasons", "Artists"].map(
+                  (item) => (
+                    <li key={item}>
+                      <Link
+                        href="#"
+                        color="inherit"
+                        underline="hover"
+                        sx={{
+                          display: "block",
+                          "&:hover": {
+                            color: "#D17B60",
+                          },
+                        }}
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  )
+                )}
               </Stack>
             </Box>
 
@@ -88,7 +104,11 @@ const Footer = () => {
               <Typography
                 variant="h6"
                 gutterBottom
-                sx={{ fontWeight: "bold", color: "#f1c40f" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#A4B494",
+                  fontFamily: "'Montserrat', sans-serif",
+                }}
               >
                 Legal
               </Typography>
@@ -102,7 +122,12 @@ const Footer = () => {
                       href="#"
                       color="inherit"
                       underline="hover"
-                      sx={{ display: "block" }}
+                      sx={{
+                        display: "block",
+                        "&:hover": {
+                          color: "#D17B60",
+                        },
+                      }}
                     >
                       {item}
                     </Link>
@@ -116,27 +141,55 @@ const Footer = () => {
               <Typography
                 variant="h6"
                 gutterBottom
-                sx={{ fontWeight: "bold", color: "#f1c40f" }}
+                sx={{
+                  fontWeight: "bold",
+                  color: "#A4B494",
+                  fontFamily: "'Montserrat', sans-serif",
+                }}
               >
                 Connect With Us
               </Typography>
               <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
-                <IconButton aria-label="Facebook" sx={{ color: "#ecf0f1" }}>
+                <IconButton
+                  aria-label="Facebook"
+                  sx={{
+                    color: "#F8F4E9",
+                    "&:hover": { color: "#D17B60" },
+                  }}
+                >
                   <Facebook />
                 </IconButton>
-                <IconButton aria-label="Instagram" sx={{ color: "#ecf0f1" }}>
+                <IconButton
+                  aria-label="Instagram"
+                  sx={{
+                    color: "#F8F4E9",
+                    "&:hover": { color: "#D17B60" },
+                  }}
+                >
                   <Instagram />
                 </IconButton>
-                <IconButton aria-label="Twitter" sx={{ color: "#ecf0f1" }}>
+                <IconButton
+                  aria-label="Twitter"
+                  sx={{
+                    color: "#F8F4E9",
+                    "&:hover": { color: "#D17B60" },
+                  }}
+                >
                   <Twitter />
                 </IconButton>
-                <IconButton aria-label="Pinterest" sx={{ color: "#ecf0f1" }}>
+                <IconButton
+                  aria-label="Pinterest"
+                  sx={{
+                    color: "#F8F4E9",
+                    "&:hover": { color: "#D17B60" },
+                  }}
+                >
                   <Pinterest />
                 </IconButton>
               </Stack>
-              <Typography variant="body2">
-                Subscribe to our newsletter for the latest updates and featured
-                galleries.
+              <Typography variant="body2" sx={{ lineHeight: 1.6 }}>
+                Join our community of nature enthusiasts and receive seasonal
+                photography highlights.
               </Typography>
             </Box>
           </Box>
@@ -146,12 +199,14 @@ const Footer = () => {
         <Box
           sx={{
             pt: 4,
-            borderTop: "1px solid rgba(255,255,255,0.1)",
+            borderTop: "1px solid #A4B49480",
             textAlign: "center",
           }}
         >
-          <Typography variant="body2">
-            © {new Date().getFullYear()} Pixels Gallery. All rights reserved.
+          <Typography variant="body2" sx={{ color: "#A4B494" }}>
+            {" "}
+            {/* Sage Green */}© {new Date().getFullYear()} Pixels Gallery. All
+            rights reserved.
           </Typography>
         </Box>
       </Container>

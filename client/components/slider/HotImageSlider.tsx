@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Favorite,
+  Visibility,
+} from "@mui/icons-material";
 
 interface TImage {
   _id: string;
@@ -51,7 +56,14 @@ const HotImageSlider = () => {
   }, [hotImages.length, currentSlide, isHovered]);
 
   return (
-    <Box sx={{ my: 6, px: { xs: 2, sm: 0 } }}>
+    <Box
+      sx={{
+        my: 6,
+        px: { xs: 2, sm: 0 },
+        backgroundColor: "#F8F4E9",
+        py: 4,
+      }}
+    >
       {hotImages.length > 0 && (
         <Box
           sx={{
@@ -68,9 +80,10 @@ const HotImageSlider = () => {
             sx={{
               mb: 3,
               fontWeight: 700,
-              color: "text.primary",
+              color: "#2E4C3E",
               textAlign: "center",
               px: { xs: 2, sm: 0 },
+              fontFamily: "'Montserrat', sans-serif",
             }}
           >
             Trending Now
@@ -83,7 +96,8 @@ const HotImageSlider = () => {
               width: "100%",
               overflow: "hidden",
               borderRadius: 4,
-              boxShadow: 6,
+              boxShadow: "0 8px 24px rgba(46, 76, 62, 0.2)",
+              border: "1px solid #A4B494",
               "&:hover .slide-info": {
                 transform: "translateY(0)",
               },
@@ -111,7 +125,7 @@ const HotImageSlider = () => {
                     height: "100%",
                     objectFit: "cover",
                     objectPosition: "center",
-                    filter: "brightness(0.95)",
+                    filter: "brightness(0.92)",
                   }}
                 />
                 <Box
@@ -122,8 +136,8 @@ const HotImageSlider = () => {
                     left: 0,
                     right: 0,
                     background:
-                      "linear-gradient(to top, rgba(0,0,0,0.8), transparent)",
-                    color: "white",
+                      "linear-gradient(to top, rgba(46, 76, 62, 0.9), transparent)",
+                    color: "#F8F4E9",
                     p: 3,
                     pt: 6,
                     transform: "translateY(20px)",
@@ -139,7 +153,8 @@ const HotImageSlider = () => {
                     sx={{
                       fontWeight: 600,
                       mb: 1,
-                      textShadow: "0 2px 4px rgba(0,0,0,0.5)",
+                      textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+                      fontFamily: "'Montserrat', sans-serif",
                     }}
                   >
                     {img.title}
@@ -153,32 +168,36 @@ const HotImageSlider = () => {
                   >
                     <Typography
                       variant="body1"
-                      sx={{ display: "flex", alignItems: "center" }}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        color: "#A4B494",
+                      }}
                     >
-                      <Box
-                        component="span"
+                      <Visibility
                         sx={{
                           mr: 1,
                           fontSize: "1.2rem",
+                          color: "#F8F4E9",
                         }}
-                      >
-                        👁️
-                      </Box>
+                      />
                       {img.views?.toLocaleString() || 0}
                     </Typography>
                     <Typography
                       variant="body1"
-                      sx={{ display: "flex", alignItems: "center" }}
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        color: "#D17B60",
+                      }}
                     >
-                      <Box
-                        component="span"
+                      <Favorite
                         sx={{
                           mr: 1,
                           fontSize: "1.2rem",
+                          color: "#D17B60",
                         }}
-                      >
-                        ❤️
-                      </Box>
+                      />
                       {img.likes?.toLocaleString() || 0}
                     </Typography>
                   </Box>
@@ -186,7 +205,7 @@ const HotImageSlider = () => {
               </Box>
             ))}
 
-            {/* Navigation Arrows - Only show on hover */}
+            {/* Navigation Arrows */}
             {isHovered && (
               <>
                 <IconButton
@@ -196,11 +215,11 @@ const HotImageSlider = () => {
                     left: 16,
                     top: "50%",
                     transform: "translateY(-50%)",
-                    backgroundColor: "rgba(255,255,255,0.2)",
+                    backgroundColor: "rgba(164, 180, 148, 0.3)",
                     backdropFilter: "blur(5px)",
-                    color: "white",
+                    color: "#2E4C3E",
                     "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.3)",
+                      backgroundColor: "rgba(209, 123, 96, 0.4)",
                     },
                     zIndex: 2,
                     transition: "all 0.3s ease",
@@ -223,11 +242,11 @@ const HotImageSlider = () => {
                     right: 16,
                     top: "50%",
                     transform: "translateY(-50%)",
-                    backgroundColor: "rgba(255,255,255,0.2)",
+                    backgroundColor: "rgba(164, 180, 148, 0.3)",
                     backdropFilter: "blur(5px)",
-                    color: "white",
+                    color: "#2E4C3E",
                     "&:hover": {
-                      backgroundColor: "rgba(255,255,255,0.3)",
+                      backgroundColor: "rgba(209, 123, 96, 0.4)",
                     },
                     zIndex: 2,
                     transition: "all 0.3s ease",
@@ -245,7 +264,7 @@ const HotImageSlider = () => {
               </>
             )}
 
-            {/* Modern Slide Indicators */}
+            {/* Slide Indicators */}
             <Box
               sx={{
                 position: "absolute",
@@ -270,15 +289,15 @@ const HotImageSlider = () => {
                     borderRadius: 4,
                     backgroundColor:
                       index === currentSlide
-                        ? "primary.main"
-                        : "rgba(255,255,255,0.5)",
+                        ? "#D17B60"
+                        : "rgba(164, 180, 148, 0.5)",
                     cursor: "pointer",
                     transition: "all 0.3s ease",
                     "&:hover": {
                       backgroundColor:
                         index === currentSlide
-                          ? "primary.dark"
-                          : "rgba(255,255,255,0.7)",
+                          ? "#D17B60"
+                          : "rgba(164, 180, 148, 0.8)",
                     },
                   }}
                 />

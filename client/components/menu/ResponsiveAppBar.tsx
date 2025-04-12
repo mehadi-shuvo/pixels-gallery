@@ -35,7 +35,14 @@ export default function GalleryNavbar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: "#2E4C3E",
+        boxShadow: "none",
+        borderBottom: "1px solid #A4B494",
+      }}
+    >
       <Container maxWidth="lg">
         <Toolbar disableGutters>
           {/* Logo - shows on all screens */}
@@ -45,12 +52,15 @@ export default function GalleryNavbar() {
             href="/"
             sx={{
               mr: 2,
-              fontFamily: "monospace",
+              fontFamily: "'Montserrat', sans-serif",
               fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
+              letterSpacing: ".1rem",
+              color: "#F8F4E9",
               textDecoration: "none",
               flexGrow: { xs: 1, md: 0 },
+              "&:hover": {
+                color: "#D17B60",
+              },
             }}
           >
             Pixels
@@ -64,6 +74,7 @@ export default function GalleryNavbar() {
               aria-controls="mobile-menu"
               onClick={handleOpenMobileMenu}
               color="inherit"
+              sx={{ color: "#F8F4E9" }}
             >
               <MenuIcon />
             </IconButton>
@@ -72,7 +83,12 @@ export default function GalleryNavbar() {
               anchorEl={mobileMenuAnchor}
               open={Boolean(mobileMenuAnchor)}
               onClose={handleCloseMobileMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
+              sx={{
+                display: { xs: "block", md: "none" },
+                "& .MuiPaper-root": {
+                  backgroundColor: "#F8F4E9",
+                },
+              }}
             >
               {navItems.map((item) => (
                 <MenuItem
@@ -81,6 +97,16 @@ export default function GalleryNavbar() {
                   component={Link}
                   href={item.path}
                   selected={pathname === item.path}
+                  sx={{
+                    color: "#2E4C3E",
+                    "&.Mui-selected": {
+                      backgroundColor: "#A4B494",
+                      color: "#F8F4E9",
+                    },
+                    "&:hover": {
+                      backgroundColor: "#A4B49480",
+                    },
+                  }}
                 >
                   {item.name}
                 </MenuItem>
@@ -93,7 +119,7 @@ export default function GalleryNavbar() {
             sx={{
               display: { xs: "none", md: "flex" },
               marginLeft: "auto",
-              gap: 1,
+              gap: 2,
             }}
           >
             {navItems.map((item) => (
@@ -106,12 +132,15 @@ export default function GalleryNavbar() {
                   fontWeight: pathname === item.path ? 700 : 500,
                   textTransform: "none",
                   fontSize: "1rem",
+                  color: "#F8F4E9",
                   backgroundColor:
-                    pathname === item.path
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "transparent",
+                    pathname === item.path ? "#A4B494" : "transparent",
+                  borderRadius: "4px",
+                  px: 2,
+                  py: 1,
                   "&:hover": {
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
+                    backgroundColor: "#A4B49480",
+                    color: "#F8F4E9",
                   },
                 }}
               >
